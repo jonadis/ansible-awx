@@ -1,0 +1,10 @@
+---
+# a comment
+- name: Upgrade All Packages w/Apt
+  hosts: all:!localhost
+  become: true
+
+  tasks:
+    - name: apt dist-upgrade
+      apt:
+        upgrade: dist

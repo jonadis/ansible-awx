@@ -2,6 +2,7 @@
 # a comment
 - name: Upgrade All Packages w/Apt
   hosts: all:!localhost
+  gather_facts: yes
   become: true
 
   tasks:

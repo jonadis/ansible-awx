@@ -1,0 +1,22 @@
+---
+# a comment
+- name: Configure Rsyslog for Graylog
+  hosts: all:!localhost
+
+  tasks:
+    - name: Create Rsyslog configuration file
+      lineinfile:
+        path: /etc/rsyslog.d/99-graylog.conf
+        create: yes
+        owner: root
+        group: root
+        mode: 0644
+        state: present
+        line: '*.* @@bionic-graylog:514;RSYSLOG_SyslogProtocol23Format'
+      register: lineinfile
+
+    - name: Restart Rsyslog if necessary
+      service:
+        name: rsyslog
+        state: restarted
+      when: lineinfile.changed

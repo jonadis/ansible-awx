@@ -6,8 +6,6 @@
   become: yes
 
   tasks:
-    - name: print ID
-      shell: id
     - name: apt dist-upgrade
       apt:
         upgrade: dist

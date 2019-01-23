@@ -1,0 +1,25 @@
+---
+# a comment
+- name: Install the 'collectd' package.
+  hosts: all:!localhost
+  gather_facts: yes
+  become: yes
+
+  tasks:
+    - name: apt install collectd
+      apt:
+        name: collectd
+        update_cache: yes
+      when: ansible_distribution_file_variety == "Debian"
+    - name: yum install collectd
+      yum:
+        name: collectd
+        state: present
+        update_cache: yes
+      when: ansible_distribution_file_variety == "RedHat"
+    - name: zypper install collectd
+      zypper:
+        name: collectd
+        state: present
+        update_cache: yes
+      when: ansible_distribution_file_variety == "SUSE"

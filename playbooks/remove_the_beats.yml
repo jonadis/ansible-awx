@@ -1,0 +1,38 @@
+---
+# a comment
+- name: Remove the '*beat' packages.
+  hosts: all:!localhost
+  gather_facts: yes
+  become: yes
+
+  tasks:
+    - name: apt remove some stuff
+      apt:
+        name: "{{ packages }}"
+        state: absent
+        update_cache: yes
+      vars:
+        packages: 
+        - metricbeat
+        - filebeat
+      when: ansible_distribution_file_variety == "Debian"
+    - name: yum remove some stuff
+      yum:
+        name: "{{ packages }}"
+        state: absent
+        update_cache: yes
+      vars:
+        packages:
+        - metricbeat
+        - filebeat
+      when: ansible_distribution_file_variety == "RedHat"
+    - name: zypper remove some stuff
+      zypper:
+        name: "{{ packages }}"
+        state: absent
+        update_cache: yes
+      vars:
+        packages:
+        - metricbeat
+        - filebeat
+      when: ansible_distribution_file_variety == "SUSE"

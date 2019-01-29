@@ -2,7 +2,6 @@
 # tasks file for setup
 - name: Just Run Setup
   hosts: all:!localhost
-  become: true
 
   tasks:
     - name: setup
